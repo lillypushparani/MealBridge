@@ -1,5 +1,6 @@
 package com.mealbridge.backend.service;
 
+import com.mealbridge.backend.dto.AuthResponse;
 import com.mealbridge.backend.dto.RegisterRequest;
 import com.mealbridge.backend.dto.UpdateUserRequest;
 import com.mealbridge.backend.entity.User;
@@ -12,10 +13,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public boolean checkUser(String phone) {
-        return userRepository.existsByPhone(phone);
-    }
 
     public User register(RegisterRequest request) {
 
@@ -54,6 +51,22 @@ public class UserService {
     public User getUserByPhone(String phone) {
     return userRepository.findByPhone(phone)
             .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    public AuthResponse checkUser(String phone) {
+
+    AuthResponse response = new AuthResponse();
+
+    userRepository.findByPhone(phone)
+            .ifPresentOrElse(user -> {
+                response.setRegistered(true);
+                response.setUser(user);
+            }, () -> {
+                response.setRegistered(false);
+                response.setUser(null);
+            });
+
+    return response;
     }
 
 }

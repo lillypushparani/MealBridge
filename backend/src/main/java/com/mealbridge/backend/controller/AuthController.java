@@ -1,6 +1,7 @@
 package com.mealbridge.backend.controller;
 
 import com.mealbridge.backend.dto.AuthRequest;
+import com.mealbridge.backend.dto.AuthResponse;
 import com.mealbridge.backend.dto.RegisterRequest;
 import com.mealbridge.backend.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/check-user")
-    public boolean checkUser(@RequestBody AuthRequest request) {
+    public AuthResponse checkUser(@RequestBody AuthRequest request) {
         return userService.checkUser(request.getPhone());
     }
 
