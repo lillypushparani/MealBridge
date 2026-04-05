@@ -1,0 +1,123 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--background) 100%);
+
+  padding: 30px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo {
+  font-size: 48px;
+  color: var(--primary);
+}
+
+.header h1 {
+  font-size: 2.8rem;
+  margin: 12px 0 8px;
+  color: var(--text);
+}
+
+.header p {
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card);
+  padding: 36px;
+  border-radius: 28px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--text);
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+button.secondary:hover {
+  background: var(--primary-light);
+}
+
+.role {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.role button {
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 0;
+}
+
+.role button.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border-color: transparent;
+}
+
+.otp {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.otp input {
+  width: 48px;
+  padding: 14px 0;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  text-align: center;
+  font-size: 1.25rem;
+  background: var(--background);
+}
+
+.center {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--muted);
+}

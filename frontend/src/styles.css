@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  --primary: #22C55E;
+  --primary-dark: #16A34A;
+  --primary-light: #DCFCE7;
+  --background: #F8FAFC;
+  --card: #FFFFFF;
+  --text: #111827;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}

@@ -1,0 +1,79 @@
+<div class="overlay">
+
+<div class="modal">
+
+<h2>Request Food</h2>
+
+
+<!-- Meal Type -->
+
+<label>Meal Type</label>
+
+<div class="meals">
+
+<button
+*ngFor="let meal of mealTypes"
+[class.active]="mealType === meal"
+(click)="mealType = meal"
+>
+
+{{meal}}
+
+</button>
+
+</div>
+
+<div *ngIf="mealType === 'others'">
+  <input
+    type="text"
+    placeholder="Enter meal type"
+    [(ngModel)]="customMealType"
+  />
+</div>
+
+
+<!-- People -->
+
+<label>People Count</label>
+
+<input
+type="number"
+[(ngModel)]="peopleCount"
+placeholder="30"
+/>
+
+
+<!-- Location -->
+
+<button (click)="detectLocation()">
+
+{{locationDetected ? "Location detected" : "Detect Location"}}
+
+</button>
+
+
+<!-- Submit -->
+
+<button
+class="submit"
+(click)="submit()"
+>
+
+Request Food
+
+</button>
+
+
+<button
+class="close"
+(click)="close.emit()"
+>
+
+Close
+
+</button>
+
+
+</div>
+
+</div>

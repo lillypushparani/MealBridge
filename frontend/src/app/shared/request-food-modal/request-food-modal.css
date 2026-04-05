@@ -1,0 +1,75 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal {
+  background: var(--card);
+  width: 100%;
+  max-width: 560px;
+  padding: 26px;
+  border-radius: 28px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+}
+
+.modal h2,
+.modal h3,
+.modal p {
+  margin: 0;
+  color: var(--text);
+}
+
+.meals {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.meals button {
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--text);
+}
+
+.meals button.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border-color: transparent;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 10px 0;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--text);
+}
+
+.submit {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  width: 100%;
+  padding: 15px;
+  border-radius: 16px;
+  margin-top: 14px;
+}
+
+.close {
+  margin-top: 10px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--background);
+  color: var(--text);
+}

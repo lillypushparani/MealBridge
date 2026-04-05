@@ -1,0 +1,145 @@
+<div class="dashboard">
+
+  <!-- Header -->
+
+  <header class="header">
+
+    <div class="brand">
+    <div class="logo">❤ MealBridge</div>
+    <div class="tagline">Sharing meals, building community with every delivery.</div>
+  </div>
+
+  <div class="header-actions">
+
+    <h2>Hi, {{user.name}}</h2>
+
+    <button class="profile" title="View profile" (click)="goProfile()">
+      {{ user.name[0] }}
+    </button>
+  </div>
+
+  </header>
+
+
+  <!-- Greeting -->
+
+
+
+
+  <!-- Stats -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <h2>0</h2>
+      <p>Active</p>
+    </div>
+
+    <div class="stat">
+      <h2>0</h2>
+      <p>Completed</p>
+    </div>
+
+    <div class="stat">
+      <h2>0</h2>
+      <p>Meals</p>
+    </div>
+
+  </div>
+
+
+  <!-- Nearby -->
+
+  <div class="section">
+
+    <h2>Nearby Requests</h2>
+
+    <div *ngIf="nearbyPosts.length > 0; else noNearby" class="posts-grid">
+      <div *ngFor="let post of nearbyPosts" class="post-card">
+        <div class="post-header">
+          <h3>{{ post.mealType }}</h3>
+          <span class="distance">{{ post.donor }}</span>
+        </div>
+        <div class="post-details">
+          <div class="detail-item">
+            <span class="icon">🍽️</span>
+            <span>{{ post.quantity }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="icon">📍</span>
+            <span>{{ post.address }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="icon">⏰</span>
+            <span>{{ post.time }}</span>
+          </div>
+          <div *ngIf="user.role === 'home'" class="detail-item">
+            <span class="icon">🥗</span>
+            <span>{{ post.foodType }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noNearby>
+      <div class="empty">No nearby requests</div>
+    </ng-template>
+
+  </div>
+
+
+  <!-- My Posts -->
+
+  <div class="section">
+
+    <h2>My Active Posts</h2>
+
+    <div *ngIf="myPosts.length > 0; else noActive" class="posts-grid">
+      <div *ngFor="let post of myPosts" class="post-card">
+        <div class="post-header">
+          <h3>{{ post.mealType }}</h3>
+          <span class="status-badge">{{ post.status }}</span>
+        </div>
+        <div class="post-details">
+          <div class="detail-item">
+            <span class="icon">🍽️</span>
+            <span>{{ post.quantity }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="icon">📍</span>
+            <span>{{ post.address }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="icon">⏰</span>
+            <span>{{ post.time }}</span>
+          </div>
+          <div *ngIf="user.role === 'home'" class="detail-item">
+            <span class="icon">🥗</span>
+            <span>{{ post.foodType }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noActive>
+      <div class="empty">No active posts</div>
+    </ng-template>
+
+  </div>
+
+
+  <!-- Floating Button -->
+
+<button 
+class="fab"
+(click)="toggleAction()">
++ {{ user.role === 'donor' ? 'Post Food' : 'Request Food' }}
+</button>
+
+<app-request-food-modal
+*ngIf="showRequestModal "
+(close)="showRequestModal=false"
+/>
+<app-post-donation-modal
+*ngIf="showModal"
+(close)="showModal=false"
+/>
+</div>

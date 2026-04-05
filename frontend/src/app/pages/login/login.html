@@ -1,1 +1,145 @@
-<p>login works!</p>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">❤</div>
+    <h1>MealBridge</h1>
+    <p>Connecting surplus food to people in need</p>
+  </div>
+
+
+  <div class="card">
+
+    <!-- PHONE -->
+
+    <div *ngIf="step === 'phone'">
+
+      <h2>Get Started</h2>
+
+      <input
+        type="text"
+        placeholder="Phone number"
+        [(ngModel)]="phone"
+      />
+
+      <button (click)="handlePhoneSubmit()">
+        Continue
+      </button>
+
+    </div>
+
+
+    <!-- CHECKING -->
+
+    <div *ngIf="step === 'checking'" class="center">
+
+      <p>Checking...</p>
+
+    </div>
+
+
+    <!-- REGISTER -->
+
+    <div *ngIf="step === 'register'">
+
+      <h2>Create Account</h2>
+
+      <div class="role">
+
+        <button
+          [class.active]="role === 'donor'"
+          (click)="role = 'donor'"
+        >
+          Donor
+        </button>
+
+        <button
+          [class.active]="role === 'home'"
+          (click)="role = 'home'"
+        >
+          NGO / Home
+        </button>
+
+      </div>
+
+
+      <div *ngIf="role === 'donor'">
+
+        <input
+          type="text"
+          placeholder="Name"
+          [(ngModel)]="name"
+        />
+
+        <input
+          type="text"
+          placeholder="Phone number"
+          [(ngModel)]="phone"
+        />
+
+      </div>
+
+
+      <div *ngIf="role === 'home'">
+
+        <input
+          type="text"
+          placeholder="Organization"
+          [(ngModel)]="organizationName"
+        />
+
+        <input
+          type="text"
+          placeholder="Contact person"
+          [(ngModel)]="contactPerson"
+        />
+
+
+
+        <input
+          type="text"
+          placeholder="Address"
+          [(ngModel)]="address"
+        />
+                <button class="secondary" (click)="detectLocation()">
+
+          Detect Location
+
+        </button>
+
+      </div>
+
+
+      <button (click)="handleRegisterSubmit()">
+        Continue
+      </button>
+
+    </div>
+
+
+
+    <!-- OTP -->
+
+    <div *ngIf="step === 'otp'">
+
+      <h2>Verify OTP</h2>
+
+<div class="otp">
+  <input
+    *ngFor="let digit of otp; let i = index"
+    type="text"
+    inputmode="numeric"
+    maxlength="1"
+    [value]="otp[i]"
+    (keydown)="handleOtpKeydown(i, $event)"
+    (paste)="handleOtpPaste($event)"
+  />
+</div>
+      <button (click)="verifyOtp()">
+        Verify
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

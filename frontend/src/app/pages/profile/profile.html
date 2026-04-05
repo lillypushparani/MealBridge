@@ -1,0 +1,92 @@
+<div class="profile">
+
+<!-- Header -->
+
+<div class="header">
+  <button class="back" (click)="goBack()">←</button>
+  <h2>Profile</h2>
+</div>
+
+
+<!-- Avatar -->
+
+<div class="avatar">
+
+<div class="circle">
+{{user.name[0]}}
+</div>
+
+<h2>{{user.name}}</h2>
+
+<p>{{user.role}}</p>
+
+</div>
+
+
+<!-- Stats -->
+
+<div class="stats">
+
+<div class="stat">
+<h2>{{completed}}</h2>
+<p>Completed</p>
+</div>
+
+<div class="stat">
+<h2>{{meals}}</h2>
+<p>Meals</p>
+</div>
+
+<div class="stat">
+<h2>{{badges}}</h2>
+<p>Badges</p>
+</div>
+
+</div>
+
+
+<!-- Edit -->
+
+<div class="form">
+
+<label>Name</label>
+
+<input
+[(ngModel)]="name"
+/>
+
+<label>Phone</label>
+
+<input
+[value]="user.phone"
+disabled
+/>
+
+<label>Address</label>
+
+<textarea
+[(ngModel)]="address"
+></textarea>
+
+
+<button
+(click)="save()"
+class="save"
+>
+Save
+</button>
+
+</div>
+
+
+<button
+(click)="logout()"
+class="logout"
+>
+
+Logout
+
+</button>
+
+
+</div>
