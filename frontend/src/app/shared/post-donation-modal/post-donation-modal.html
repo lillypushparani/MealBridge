@@ -5,8 +5,6 @@
 <h2>Post Food Donation</h2>
 
 
-<!-- Meal Type -->
-
 <label>Meal Type</label>
 
 <div class="meals">
@@ -16,23 +14,20 @@
 [class.active]="mealType === meal"
 (click)="mealType = meal"
 >
-
 {{meal}}
-
 </button>
 
 </div>
 
+
 <div *ngIf="mealType === 'others'">
-  <input
-    type="text"
-    placeholder="Enter meal type"
-    [(ngModel)]="customMealType"
-  />
+<input
+type="text"
+placeholder="Enter meal type"
+[(ngModel)]="customMealType"
+/>
 </div>
 
-
-<!-- Quantity -->
 
 <label>Quantity</label>
 
@@ -42,8 +37,6 @@ type="number"
 placeholder="50"
 />
 
-
-<!-- Food Type -->
 
 <label>Food Type</label>
 
@@ -55,32 +48,37 @@ placeholder="50"
 *ngFor="let f of foodTypes"
 [value]="f"
 >
-
 {{f}}
-
 </option>
 
 </select>
 
+
 <div *ngIf="foodType === 'others'">
-  <input
-    type="text"
-    placeholder="Enter food type"
-    [(ngModel)]="customFoodType"
-  />
+<input
+type="text"
+placeholder="Enter food type"
+[(ngModel)]="customFoodType"
+/>
 </div>
 
 
-<!-- Location -->
+<label>Location</label>
 
-<button (click)="detectLocation()">
+<button
+class="detect-btn"
+(click)="detectLocation()"
+>
 
-{{locationDetected ? "Location detected" : "Detect Location"}}
+📍 Detect Location
 
 </button>
 
 
-<!-- Submit -->
+<div *ngIf="locationDetected" class="location-success">
+Location detected successfully
+</div>
+
 
 <button
 class="submit"

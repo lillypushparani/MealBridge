@@ -232,6 +232,29 @@
   box-shadow: 0 8px 25px -5px rgba(34, 197, 94, 0.25);
 }
 
+.post-actions {
+display:flex;
+gap:8px;
+margin-top:10px;
+}
+
+.edit-btn{
+flex:1;
+padding:8px;
+border-radius:10px;
+background:#e3f2fd;
+border:none;
+}
+
+.delete-btn{
+flex:1;
+padding:8px;
+border-radius:10px;
+background:#ffebee;
+border:none;
+color:#c62828;
+}
+
 @media (max-width: 780px) {
   .stats {
     grid-template-columns: 1fr;

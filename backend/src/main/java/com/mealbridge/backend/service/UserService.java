@@ -6,15 +6,19 @@ import com.mealbridge.backend.entity.User;
 import com.mealbridge.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public boolean checkUser(String phone) {
-        return userRepository.existsByPhone(phone);
+    public Long checkUser(String phone) {
+        Optional<User> user = userRepository.findByPhone(phone);
+        if(user.isPresent()) {
+            return user.get().getId();
+        }
+        return 0L;
     }
 
     public User register(RegisterRequest request) {

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.mealbridge.backend.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/check-user")
-    public boolean checkUser(@RequestBody AuthRequest request) {
+    public Long checkUser(@RequestBody AuthRequest request) {
         return userService.checkUser(request.getPhone());
     }
 

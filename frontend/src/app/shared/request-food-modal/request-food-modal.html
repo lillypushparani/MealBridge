@@ -5,8 +5,6 @@
 <h2>Request Food</h2>
 
 
-<!-- Meal Type -->
-
 <label>Meal Type</label>
 
 <div class="meals">
@@ -16,51 +14,52 @@
 [class.active]="mealType === meal"
 (click)="mealType = meal"
 >
-
 {{meal}}
-
 </button>
 
 </div>
 
+
 <div *ngIf="mealType === 'others'">
-  <input
-    type="text"
-    placeholder="Enter meal type"
-    [(ngModel)]="customMealType"
-  />
+<input
+type="text"
+placeholder="Enter meal type"
+[(ngModel)]="customMealType"
+/>
 </div>
 
-
-<!-- People -->
 
 <label>People Count</label>
 
 <input
 type="number"
-[(ngModel)]="peopleCount"
+[(ngModel)]="quantity"
 placeholder="30"
 />
 
 
-<!-- Location -->
+<label>Location</label>
 
-<button (click)="detectLocation()">
+<button
+class="detect-btn"
+(click)="detectLocation()"
+>
 
-{{locationDetected ? "Location detected" : "Detect Location"}}
+📍 Detect Location
 
 </button>
 
 
-<!-- Submit -->
+<div *ngIf="locationDetected" class="location-success">
+Location detected successfully
+</div>
+
 
 <button
 class="submit"
 (click)="submit()"
 >
-
 Request Food
-
 </button>
 
 
@@ -68,9 +67,7 @@ Request Food
 class="close"
 (click)="close.emit()"
 >
-
 Close
-
 </button>
 
 

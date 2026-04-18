@@ -1,91 +1,209 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PostDonationModalComponent } from '../../shared/post-donation-modal/post-donation-modal'
-import { RequestFoodModalComponent } from '../../shared/request-food-modal/request-food-modal'
-
+import { PostDonationModalComponent } from '../../shared/post-donation-modal/post-donation-modal';
+import { RequestFoodModalComponent } from '../../shared/request-food-modal/request-food-modal';
 import { Router } from '@angular/router';
-
+import { RequestService } from '../../services/request.service';
+import { DonationService } from '../../services/donation.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule,PostDonationModalComponent,RequestFoodModalComponent],
+  imports: [CommonModule, PostDonationModalComponent, RequestFoodModalComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
 export class DashboardComponent {
 
-  user = {
-    name: "Lilly",
-    role: "donor"
+  user: any;
+  nearbyRequests: any[] = [];
+  myPosts: any[] = [];
+
+  showDonationModal = false;
+  showRequestModal = false;
+
+  statement = '';
+
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private requestService: RequestService,
+    private donationService: DonationService
+  ) {}
+
+
+
+  /* ==============================
+        INIT
+  ============================== */
+
+  ngOnInit() {
+
+    this.user = JSON.parse(localStorage.getItem("user") || "{}");
+
+    console.log("User:", this.user);
+
+    this.loadMyPosts();
+    this.loadNearby();
+
   }
 
-  nearbyPosts = [
-    {
-      id: 1,
-      mealType: 'Vegetables',
-      quantity: '15 kg',
-      address: 'Downtown Market',
-      time: '2 hours ago',
-      donor: 'Farm Fresh Co',
-      foodType: 'veg'
-    },
-    {
-      id: 2,
-      mealType: 'Bakery Items',
-      quantity: '8 items',
-      address: 'Main Street Bakery',
-      time: '45 mins ago',
-      donor: 'Morning Bakery',
-      foodType: 'mixed'
-    },
-    {
-      id: 3,
-      mealType: 'Rice & Grains',
-      quantity: '25 kg',
-      address: 'Grain Warehouse',
-      time: '3 hours ago',
-      donor: 'Grain Supplies Ltd',
-      foodType: 'veg'
-    }
-  ]
-  
-  myPosts = [
-    {
-      id: 101,
-      mealType: 'Home-cooked Meals',
-      quantity: '20 meals',
-      address: 'My Kitchen',
-      time: '5 days ago',
-      status: 'Active',
-      foodType: 'mixed'
-    },
-    {
-      id: 102,
-      mealType: 'Fresh Fruits',
-      quantity: '12 kg',
-      address: 'Fruit Market',
-      time: '2 days ago',
-      status: 'Active',
-      foodType: 'veg'
-    }
-  ]
-  
-  showModal = false
-  showRequestModal = false
 
-  constructor(private router: Router) {}
+
+  /* ==============================
+        LOAD MY POSTS
+  ============================== */
+
+  loadMyPosts() {
+
+    if (this.user.role.toLowerCase() === 'donor') {
+
+      this.donationService.getMyDonations(this.user.id)
+      .subscribe((res: any) => {
+
+        this.myPosts = res;
+        console.log("My Donations:", this.myPosts);
+        this.cdr.detectChanges();
+
+      });
+
+    } else {
+
+      this.requestService.getMyRequests(this.user.id)
+      .subscribe((res: any) => {
+
+        this.myPosts = res;
+        console.log("My Requests:", this.myPosts);
+        this.cdr.detectChanges();
+
+      });
+
+    }
+
+  }
+
+
+
+  /* ==============================
+        LOAD NEARBY
+  ============================== */
+
+  loadNearby() {
+
+    if (this.user.role.toLowerCase() === 'donor') {
+
+      this.statement = 'Nearby Requests';
+
+      this.requestService.getActiveRequests()
+      .subscribe((res: any) => {
+
+        this.nearbyRequests = res;
+        console.log("Nearby Requests:", this.nearbyRequests);
+        this.cdr.detectChanges();
+
+      });
+
+    } else {
+
+      this.statement = 'Nearby Donations';
+
+      this.donationService.getActiveDonations()
+      .subscribe((res: any) => {
+
+        this.nearbyRequests = res;
+        console.log("Nearby Donations:", this.nearbyRequests);
+        this.cdr.detectChanges();
+
+      });
+
+    }
+
+  }
+
+
+
+  /* ==============================
+        NAVIGATION
+  ============================== */
 
   goProfile() {
     this.router.navigate(['/profile']);
   }
 
+
+
+  /* ==============================
+        OPEN MODALS
+  ============================== */
+
   toggleAction() {
-    if (this.user.role === 'donor') {
-      this.showModal = true;
+
+    if (this.user.role.toLowerCase() === 'donor') {
+      this.showDonationModal = true;
     } else {
       this.showRequestModal = true;
     }
+
+  }
+
+
+
+  /* ==============================
+        DELETE POST
+  ============================== */
+
+  deletePost(id: number) {
+
+    if (this.user.role.toLowerCase() === 'donor') {
+
+      this.donationService.deleteDonation(id)
+      .subscribe(() => {
+
+        this.loadMyPosts();
+
+      });
+
+    } else {
+
+      this.requestService.deleteRequest(id)
+      .subscribe(() => {
+
+        this.loadMyPosts();
+
+      });
+
+    }
+
+  }
+
+
+
+  /* ==============================
+        COMPLETE POST
+  ============================== */
+
+  completePost(id: number) {
+
+    if (this.user.role.toLowerCase() === 'donor') {
+
+      this.donationService.completeDonation(id)
+      .subscribe(() => {
+
+        this.loadMyPosts();
+
+      });
+
+    } else {
+
+      this.requestService.completeRequest(id)
+      .subscribe(() => {
+
+        this.loadMyPosts();
+
+      });
+
+    }
+
   }
 
 }
